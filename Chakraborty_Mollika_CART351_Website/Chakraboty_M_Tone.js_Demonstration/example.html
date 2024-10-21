@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Tone.js Synth Example</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+</head>
+<body>
+  <h1>Tone.js Synth Example</h1>
+  <button onclick="playNote()">Play Note</button>
+
+  <script>
+    // Create a Synth with custom envelope settings
+    const synth = new Tone.Synth({
+      oscillator: {
+        type: "sine" // Sine wave
+      },
+      envelope: {
+        attack: 0.5,  // Time for sound to reach its peak
+        decay: 0.2,   // Time for sound to drop after attack
+        sustain: 0.7, // Level to hold after decay
+        release: 1    // Time for sound to fade out
+      }
+    }).toDestination(); // Connect the synth to the audio output (speakers)
+
+    // Function to play a note
+    function playNote() {
+      // Trigger a note (C4) for 1 second (1 second = "1n")
+      synth.triggerAttackRelease("C4", "1n");
+
+      // Other note examples//
+      // synth.triggerAttackRelease("G4", "8n"); // G4 for an eighth note
+      // synth.triggerAttackRelease("A4", "2n"); // A4 for a half note
+    }
+  </script>
+</body>
+</html>

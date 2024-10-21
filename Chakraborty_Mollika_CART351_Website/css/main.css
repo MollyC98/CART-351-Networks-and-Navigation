@@ -1,0 +1,84 @@
+
+/* Set the gradient background for the entire body */
+body {
+  background: linear-gradient(to right, #3730ff, #79c9ff); /* Gradient colors */
+  font-family: Arial, sans-serif; /* Font style */
+  font-size: large;
+  font-weight: bold;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  height: 100vh; /* Full height */
+  display: grid;
+  place-items: center; /* Center the grid content horizontally and vertically */
+}
+
+#cubeCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* Behind all other elements */
+}
+
+
+/* Style for the header */
+header {
+  text-align: center;
+  margin-bottom: 20px; /* Space below header */
+}
+
+ul {
+  list-style-type: none; /* Remove the default bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+
+h2, h3, h4 {
+  color: #ffffff; /* Light orange color for headings */
+}
+
+/* Main content container with grid */
+main {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Set 4 equal columns (adjust number as needed) */
+  grid-gap: 30px; /* Space between columns and rows */
+  padding: 20px; /* Padding around content */
+  border-radius: 10px; /* Rounded corners */
+  width: 80%; /* Main area width */
+  max-width: 1200px; /* Adjust the max width to accommodate all categories */
+}
+
+/* Style for each category (column) */
+.category {
+  text-align: center; /* Center-align text */
+}
+
+/* Style for links as buttons */
+a.button {
+  display: inline-block; /* Make links behave like buttons */
+  background-color: #fff; /* White background for buttons */
+  color: #FF7E5F; /* Button text color */
+  padding: 15px 30px; /* Padding for button effect */
+  margin: 10px; /* Margin for spacing */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+/* Change background color on hover */
+a.button:hover {
+  background-color: #f0f0f0; /* Light grey on hover */
+}
+
+/* Style for the footer */
+footer {
+  text-align: center;
+  margin-top: 20px; /* Space above footer */
+  padding: 20px; /* Padding inside footer */
+  border-radius: 5px; /* Rounded corners */
+  
+}

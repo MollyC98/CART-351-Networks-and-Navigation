@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>**TEMPLATE CART 351 PAGE**</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden; /* Prevents scrollbars */
+            position: relative;
+            z-index: 0;
+        }
+
+        #cubeCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Make sure it's behind other elements */
+        }
+
+        header {
+            text-align: center;
+            margin: 20px 0;
+            color: #fff; /* Change header color to contrast */
+        }
+
+        main {
+            display: flex;
+            justify-content: space-around; /* Space out columns evenly */
+            align-items: flex-start;
+            flex-wrap: nowrap; /* Prevent wrapping */
+            margin: 20px;
+        }
+
+        .category {
+            margin: 20px;
+            text-align: center;
+            flex: 1; /* Allow equal space for each category */
+            min-width: 200px; /* Minimum width to prevent squeezing */
+        }
+
+        h4 {
+            color: #fff; /* Change font color for category titles */
+        }
+
+        .button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007BFF; /* Bootstrap primary color */
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* Darken button on hover */
+            transform: scale(1.05); /* Slightly increase size on hover */
+        }
+
+        footer {
+            text-align: center;
+            color: #fff;
+            margin: 20px 0;
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 800px) {
+            main {
+                flex-direction: column; /* Stack vertically on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- the header div -->
+    <header>
+        <h2>CART 351 WEBSITE</h2>
+        <h3>MOLLIKA CHAKRABORTY</h3>
+        <h4>EXERCISES AND PROJECTS TERM 2024</h4>
+    </header>
+    
+    <!-- the main div -->
+    <main>
+        <div class="category">
+            <h4>EXERCISES</h4>
+            <ul>
+                <li><a class="button" href="Chakraborty_Mollika_CARY351_Ex01/index.html">Link to Exercise 1: Live</a></li>
+                <li><a class="button" href="#">Link to Exercise 2: Live</a></li>
+                <li><a class="button" href="#">Link to Exercise XX: Live</a></li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h4>SEMESTER PROJECT</h4>
+            <ul>
+                <li><a class="button" href="#">Link to Project Proposal</a></li>
+                <li><a class="button" href="#">Link to Project Prototype: Live</a></li>
+                <li><a class="button" href="#">Link to Final Prototype Documentation</a></li>
+                <li><a class="button" href="#">Link to Final Project: Live</a></li>
+                <li><a class="button" href="#">Link to Final Project Documentation</a></li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h4>REFLECTIONS</h4>
+            <ul>
+                <li><a class="button" href="CART 351 REFLECTION 1.pdf">Link to Reflection 1</a></li>
+                <li><a class="button" href="CART 351 REFLECTION 2.pdf">Link to Reflection 2</a></li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <h4>PRESENTATION</h4>
+            <ul>
+                <li><a class="button" href="#">Link to Presentation Slides</a></li>
+                <li><a class="button" href="#">Link to Presentation Documentation</a></li>
+                <li><a class="button" href="#">...</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- The canvas for 3D cubes -->
+    <canvas id="cubeCanvas"></canvas>
+
+    <!-- the footer div -->
+    <footer>
+        <p>&copy; 2024 Mollika Chakraborty. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Initialize Three.js
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('cubeCanvas'), alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+  
+      // Array to store cubes
+      const cubes = [];
+  
+      // Function to create a cube with random size and position
+      function createCube() {
+          const geometry = new THREE.BoxGeometry(1, 1, 1);
+          
+          // Create a basic material for the cube
+          const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
+  
+          // Create the cube mesh
+          const cube = new THREE.Mesh(geometry, material);
+          
+          // Create the wireframe material
+          const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }); // Black color for the border
+          const edges = new THREE.EdgesGeometry(geometry); // Generate edges
+          const line = new THREE.LineSegments(edges, wireframeMaterial); // Create line segments
+          cube.add(line); // Add wireframe to cube
+  
+          cube.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+          scene.add(cube);
+          cubes.push(cube);
+      }
+  
+      // Create multiple cubes
+      for (let i = 0; i < 20; i++) {
+          createCube();
+      }
+  
+      // Set camera position
+      camera.position.z = 7;
+  
+      // Animation loop
+      function animate() {
+          requestAnimationFrame(animate);
+  
+          // Rotate each cube on its axis
+          cubes.forEach(cube => {
+              cube.rotation.x += 0.01;
+              cube.rotation.y += 0.01;
+          });
+  
+          renderer.render(scene, camera);
+      }
+  
+      // Start the animation
+      animate();
+  
+      // Adjust canvas size when the window is resized
+      window.addEventListener('resize', () => {
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+      });
+  </script>
+  
+</body>
+</html>
