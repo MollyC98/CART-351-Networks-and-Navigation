@@ -1,3 +1,6 @@
+# Ignore ._ files
+._*
+
 # Logs
 logs
 *.log
