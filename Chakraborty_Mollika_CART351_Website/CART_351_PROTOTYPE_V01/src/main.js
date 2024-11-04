@@ -4,6 +4,7 @@ import { SCENE_KEYS } from './scenes/scene-keys.js';
 import { PreloadScene } from './scenes/preload-scene.js';
 import { GameScene } from './scenes/game-scene.js'; // Import GameScene
 
+
 const game = new Phaser.Game({
     type: Phaser.CANVAS,
     pixelArt: false,
