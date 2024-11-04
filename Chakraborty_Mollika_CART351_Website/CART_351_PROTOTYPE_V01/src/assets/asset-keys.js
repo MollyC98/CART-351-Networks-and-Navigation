@@ -1,5 +1,4 @@
 
-
 export const GAMEPLAY_BACKGROUND_ASSET_KEYS = Object.freeze({
     CLOUDY: 'CLOUDY'
 });
@@ -15,4 +14,5 @@ export const PLAYERS_ASSET_KEYS = Object.freeze({
 export const GAMEPLAY_ASSET_KEYS = Object.freeze({
     CARROT: 'CARROT'
 });
+
 
