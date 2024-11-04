@@ -5,7 +5,19 @@ import { SCENE_KEYS } from './scenes/scene-keys.js';
 import { PreloadScene } from './scenes/preload-scene.js';
 
 const game = new Phaser.Game({
-    parent: 'game-container'
+
+    type: Phaser.CANVAS,
+    pixelArt: false,
+    scale: {
+        parent: 'game-container',
+        width: 8000,
+        height: 4150,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    backgroundColor: '#ffffff'
+
+    
 
 });
 
