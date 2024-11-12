@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "question": "What tends to stress you out the most?",
+        "options": ["Deadlines", "Overthinking", "Exams", "Family pressure", "Managing time"]
+    },
+    {
+        "id": 2,
+        "question": "How do you usually feel when dealing with stressful tasks?",
+        "options": ["Overwhelmed", "Anxious", "Frustrated", "Motivated to improve", "Exhausted"]
+    },
+    {
+        "id": 3,
+        "question": "How do you usually handle stress?",
+        "options": ["Taking breaks", "Talking to someone", "Exercising", "Ignoring it", "Organizing or planning"]
+    },
+    {
+        "id": 4,
+        "question": "Which area would you like to improve to manage stress better?",
+        "options": ["Time management", "Relaxation techniques", "Setting boundaries", "Positive thinking"]
+    },
+    {
+        "id": 5,
+        "question": "What activities help you feel calm?",
+        "options": ["Exercise", "Mindfulness", "Socializing", "Creative hobbies", "Sleep"]
+    }
+]

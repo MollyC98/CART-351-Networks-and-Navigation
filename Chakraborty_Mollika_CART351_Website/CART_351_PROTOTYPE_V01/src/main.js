@@ -1,33 +1,51 @@
-
 import Phaser from './lib/phaser.js';
-import { SCENE_KEYS } from './scenes/scene-keys.js';
+// import { SCENE_KEYS } from './scenes/scene-keys.js';
 import { PreloadScene } from './scenes/preload-scene.js';
-import { GameScene } from './scenes/game-scene.js'; // Import GameScene
+import { DeadlineScene } from './scenes/deadline-scene.js'; // Import GameScene
+import { OverthinkingScene } from './scenes/overthinking-scene.js'; //overthinking scene
+import showSurvey from './survey.js';
 
-const game = new Phaser.Game({
-    type: Phaser.CANVAS,
-    pixelArt: false,
-    physics: {
-        default: 'arcade', // Enable arcade physics
-        arcade: {
-            gravity: {
-                y: 0,
-                x: 0
-            }, // No gravity
-            debug: false // 
-        }
-    },
-    scale: {
-        parent: 'game-container',
-        width: 8000,
-        height: 4150,
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH
-    },
-    backgroundColor: '#ffffff'
-});
+window.onload = function(){
 
-game.scene.add(SCENE_KEYS.PRELOAD_SCENE, PreloadScene);
-game.scene.add(SCENE_KEYS.GAME_SCENE, GameScene); // Add GameScene
-game.scene.start(SCENE_KEYS.PRELOAD_SCENE);
+    document.querySelector("#play").addEventListener("click", function(e){
+        e.preventDefault();
+        //showLogin
+        // go to survey
+        showSurvey(startGame);
+    })
+   
 
+function startGame(answers)  {
+    // Hide the survey and start the game
+    document.getElementById('survey').style.display = 'none';
+    document.getElementById('game-container').style.display = 'block';  // Show game container
+
+
+        const game = new Phaser.Game({
+        type: Phaser.AUTO,
+        scale: {
+            parent: 'game-container',
+            width: 1280,
+            height: 720,
+            mode: Phaser.Scale.FIT,
+            autoCenter: Phaser.Scale.CENTER_BOTH
+        },
+        scene: [PreloadScene,DeadlineScene, OverthinkingScene], // Only include scenes needed for gameplay
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 200, x: 0 },
+                debug: false
+            }
+        },
+       
+    });
+
+
+    // Add Phaser game scenes
+    //game.scene.add('Preload', PreloadScene);
+
+    // Start the Preload scene
+    game.scene.start('PreloadScene', answers);
+}
+}

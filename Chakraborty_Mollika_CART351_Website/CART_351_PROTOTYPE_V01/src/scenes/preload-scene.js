@@ -1,13 +1,24 @@
 
 import { GAMEPLAY_ASSET_KEYS, GAMEPLAY_BACKGROUND_ASSET_KEYS, PLAYERS_ASSET_KEYS, STRESSORS_ASSET_KEYS } from '../assets/asset-keys.js';
 import Phaser from '../lib/phaser.js';
-import { SCENE_KEYS } from './scene-keys.js';
+//import { SCENE_KEYS } from './scene-keys.js';
 
 export class PreloadScene extends Phaser.Scene {
     constructor() {
-        super({
-            key: SCENE_KEYS.PRELOAD_SCENE,
-        });
+        super('PreloadScene');
+    }
+    init(answers){
+    console.log('inside preload')
+    console.log(answers)
+    if(answers["1"] == 'Deadlines'){
+        this.chosenScene = 'DeadlineScene'
+    }
+
+    else if (answers["1"] == 'Overthinking'){
+        this.chosenScene = 'OverthinkingScene'
+    }
+   
+
     }
 
     preload() {
@@ -25,8 +36,8 @@ export class PreloadScene extends Phaser.Scene {
     }
 
     create() {
-        console.log('Preload complete');
-        this.scene.start(SCENE_KEYS.GAME_SCENE); // Start the GameScene after preload
+       
+        this.scene.start(this.chosenScene); // Start the GameScene after preload
     }
 }
 

@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('assets/fonts/MysteryQuest-Regular.ttf') format('truetype'); /* Update the file path and format as needed */
+    letter-spacing: 20px;
+    font-weight: normal;
+    font-style: normal;
+
+}
+/* Center the entire viewport */
+body, html {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #e8f4f8;
+}
+#resource{
+width: 100vw;
+height: 100vh;
+background: pink;
+}
+
+/* Scaled, centered, and bordered menu and game container */
+.menu-container{
+    width: 90vw;  /* Adjust to 90% of viewport width */
+    max-width: 960px;  /* Set a max-width for larger screens */
+    height: 50vw;  /* Adjust height relative to width */
+    max-height: 540px;  /* Set a max-height for larger screens */
+    margin: 0 auto;
+    border: 3px solid #0703fc;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #f2f2f2;
+    
+    /* Center content inside */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Title and button styling for uniform look */
+.menu-container h1, .menu-container h2 {
+    font-size: 3rem;
+    color: #0703fc;
+    margin-bottom: 20px;
+}
+
+.menu-container button {
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: #0703fc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-container button:hover {
+    background-color: #03fc0f;
+}
