@@ -15,6 +15,9 @@ body, html {
     margin: 0;
     background-color: #e8f4f8;
 }
+/* #game-container{
+    width: 200vw;
+} */
 #resource{
 width: 100vw;
 height: 100vh;
@@ -63,4 +66,47 @@ background: pink;
 
 .menu-container button:hover {
     background-color: #03fc0f;
+}
+
+.message-box {
+    width: 1280px;
+    height: 720px;
+    background: url('assets/bg/messagebg.png') no-repeat center center / cover;
+    display: flex;
+    justify-content: flex-end; /* Aligns the box content (text) to the right */
+    align-items: center;
+    text-align: light; /* Ensure the text inside is aligned right */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px; /* Optional for spacing inside the box */
+}
+
+/* Style for the motivational message text */
+.motivational-message {
+    font-size: 30px;
+    color: #ffffff;
+    font-family: 'Pangolin', sans-serif;
+    padding: 200px;
+    line-height: 1.6;
+    text-align: left;
+    max-width: 600px;
+}
+
+/* Style for the skip buttons */
+.skip-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-family: 'Pangolin', sans-serif;
+    background-color: #f76c6c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.skip-button:hover {
+    background-color: #d85d5d;
 }

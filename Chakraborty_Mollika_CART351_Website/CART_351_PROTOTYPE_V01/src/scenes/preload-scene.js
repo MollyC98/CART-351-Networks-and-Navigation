@@ -22,17 +22,6 @@ export class PreloadScene extends Phaser.Scene {
     }
 
     preload() {
-        // Load background
-        this.load.image(GAMEPLAY_BACKGROUND_ASSET_KEYS.CLOUDY, 'assets/bg/placeholder.jpeg');
-
-        // Load stressors/enemies
-        this.load.image(STRESSORS_ASSET_KEYS.WINGMAN, 'assets/characters/kenney_jumper-pack/PNG/Enemies/wingman1.png');
-
-        // Load player (bunny)
-        this.load.image(PLAYERS_ASSET_KEYS.BUNNY, 'assets/characters/kenney_jumper-pack/PNG/Players/bunny1_ready.png');
-
-        // Load item (carrot)
-        this.load.image(GAMEPLAY_ASSET_KEYS.CARROT, 'assets/characters/kenney_jumper-pack/PNG/Items/carrot.png');
     }
 
     create() {

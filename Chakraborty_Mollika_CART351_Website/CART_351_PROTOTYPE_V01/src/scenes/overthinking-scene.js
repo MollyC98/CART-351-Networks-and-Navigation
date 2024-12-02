@@ -1,9 +1,6 @@
 // import { SCENE_KEYS } from "./scene-keys.js";
 import {
-  GAMEPLAY_BACKGROUND_ASSET_KEYS,
-  GAMEPLAY_ASSET_KEYS,
-  STRESSORS_ASSET_KEYS,
-  PLAYERS_ASSET_KEYS,
+  
 } from "../assets/asset-keys.js";
 import Phaser from "../lib/phaser.js";
 import Enemy from '../enemy.js'
@@ -18,183 +15,97 @@ export class OverthinkingScene extends Phaser.Scene {
   }
 
   preload() {
-    // Load assets
-    this.load.image(
-      GAMEPLAY_BACKGROUND_ASSET_KEYS.CLOUDY,
-      "assets/bg/placeholder.jpeg"
-    );
-    this.load.image(
-      GAMEPLAY_ASSET_KEYS.CARROT,
-      "assets/characters/kenney_jumper-pack/PNG/Items/carrot.png"
-    );
-    this.load.image(
-      STRESSORS_ASSET_KEYS.WINGMAN,
-      "assets/characters/kenney_jumper-pack/PNG/Enemies/wingman1.png"
-    );
-    this.load.image(
-      PLAYERS_ASSET_KEYS.BUNNY,
-      "assets/characters/kenney_jumper-pack/PNG/Players/bunny1_ready.png"
-    );
-  }
+    // Load the background image
+    this.load.image('overthinkingBg', 'assets/bg/overthink_bg01.jpg'); // Replace path
 
-  create() {
+    // Load the tilemap and tilesheet
+    this.load.tilemapTiledJSON('overthinkingMap', 'assets/Tiles/overthinking02.json');
+    this.load.image('tiles', 'assets/Tiles/platformPack_tilesheet.png');
 
-    // Create background
-    this.add
-      .image(250, 125, GAMEPLAY_BACKGROUND_ASSET_KEYS.CLOUDY)
-      .setDisplaySize(1280, 720);
-
-    // Create the bunny
-
-    this.bunny = new Bunny(this,50,50,PLAYERS_ASSET_KEYS.BUNNY)
-    
-  
+    // Load the character walking sprite sheet
+    this.load.spritesheet('player-walk', 'assets/characters/characterwalk.png', {
+        frameWidth: 64, // Width of each frame
+        frameHeight: 64, // Height of each frame
 
 
+    });
+}
 
-    //  group for carrots
-    this.carrots = this.physics.add.staticGroup({
-      key: GAMEPLAY_ASSET_KEYS.CARROT,
-      repeat: 5, // Number of carrots
-      setXY: { x: 100, y: 0, stepX: 200 }, // Positioning
+create() {
+    // Add the background image and scale it to fit the canvas
+    const bg = this.add.image(0, 0, 'overthinkingBg').setOrigin(0, 0);
+    //bg.setDisplaySize(1280, 1280); // Stretch to fit the canvas
+
+    // Create the tilemap
+    const map = this.make.tilemap({ key: 'overthinkingMap',tileWidth: 32, tileHeight:32 });
+
+    // Add the tileset image to the map (must match the name in Tiled)
+    const tileset = map.addTilesetImage('overthink_L1', 'tiles');
+
+    // Create layers from the tilemap
+    const groundLayer = map.createLayer('ground', tileset, 0, 0); // Main ground layer
+    const wallLayer = map.createLayer('walls', tileset, 0, 0); // Walls for collisions
+    const ladderLayer = map.createLayer ('stairs', tileset, 0, 0) //stairs 
+    const heartsLayer =  map.createLayer('hearts', tileset, 0, 0 )  // hearts 
+
+    // Enable collisions on the wall layer
+    wallLayer.setCollisionByProperty({ collides: true }); 
+
+    // Debug collisions (optional, remove for production)
+    const debugGraphics = this.add.graphics().setAlpha(0.7);
+    wallLayer.renderDebug(debugGraphics, {
+        tileColor: null, // Non-colliding tiles are transparent
+        // collidingTileColor: new Phaser.Display.Color(255, 0, 0, 255), // Red for colliding tiles
+        // faceColor: new Phaser.Display.Color(0, 255, 0, 255), // Green for collision edges
     });
 
-    // group for stressors
+    // Create the walking animation for the player
+    this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('player-walk', { start: 0, end: 3 }),
+        frameRate: 10, // Adjust for smoother animation
+        repeat: -1, // Loop the animation
+    });
 
-    this.stressorsArray = [];
-    this.stressorInfoArray = [];
-    this.speedX = 0;
-    this.speedY = 0;
+    // Add the player sprite
+    this.player = this.physics.add.sprite(100, 100, 'player-walk');
+    this.player.setCollideWorldBounds(true); // Keep the player inside the game world
 
-    this.stressorsArray.push(
-        new Enemy(this,50,50,STRESSORS_ASSET_KEYS.WINGMAN,this.bunny)
-      )
-      this.stressorsArray.push(
-        new Enemy(this,50,50,STRESSORS_ASSET_KEYS.WINGMAN,this.bunny)
-      )
-        
-        
-    
+    // Enable collision between the player and wall layer
+    this.physics.add.collider(this.player, wallLayer);
 
-
-
-
-    // collision between bunny and carrots
-    // this.physics.add.overlap(
-    //   this.bunny,
-    //   this.carrots,
-    //   this.collectCarrot,
-    //   null,
-    //   this
-    // );
-
-   // collision between bunny and stressors
-    this.physics.add.overlap(
-      this.bunny,
-      this.stressorsArray[0],
-      this.hitStressor,
-      null,
-      this
-    );
-
-
-
-    let testTimer = setInterval(()=>{toggle = false
-      
-    },1000)
-
-
-   // this.speedOriginalX = this.stressorInfoArray[0].speedX
-    //this.speedOriginalY = this.stressorInfoArray[0].speedY
-
-    this.breathe = this.add.text(this.sys.game.canvas.width/2-900, 1000, 'breathe in\nbreathe out', { font: '20px Arial', align: "center" });    
-    this.breathe.setVisible(false)
-
-
-    this.gameOverText = this.add.text(1500, 1500, 'GAME OVER\n(REFRESH)', { font: '20px CustomFont', align: "center" });    
-    this.gameOverText.setVisible(false)
-
-    this.controlsText = this.add.text(0, 0, 'UP ARROW: Move Up\nDOWN ARROW: Move Down\nSPACE: Calm Down (Slow Down TIme)', { font: '20px Arial' });    
-    this.controlsText.setVisible(true)
-
-
-  }
-
-  update() {
-
-    this.stressorsArray[0].checkBounds()
-   // console.log(this.stressorsArray[0].x)
-    
-    this.stressorsArray[0].x += this.stressorsArray[0].speedX;
-   this.stressorsArray[0].y += this.stressorsArray[0].speedY;
-
-    // this.stressorsArray[0].setVelocityX(
-    //   this.bunny.x - this.stressorsArray[0].x
-    // );
-    // this.stressorsArray[0].setVelocityY(
-    //   this.bunny.y - this.stressorsArray[0].y
-    // );
-    // Update bunny movement based on user input
-    const cursors = this.input.keyboard.createCursorKeys();
-    if (cursors.left.isDown) {
-      this.bunny.setVelocityX(-100);
-    } else if (cursors.right.isDown) {
-      this.bunny.setVelocityX(100);
-    }
-    // else {
-    //   //this.bunny.setVelocityX(0);
-    // }
-    // if (cursors.space.isDown && toggle == false) {
-    //     this.stressorInfoArray[0].speedX/=5;
-    //     this.stressorInfoArray[0].speedY/=5;
-    //     toggle = true;
-    //     this.breathe.setVisible(true)
-
-    // }
-
-    if (cursors.up.isDown) {
-      this.bunny.setVelocityY(-100);
-    } else if (cursors.down.isDown) {
-      this.bunny.setVelocityY(100);
-     } 
-    //else {
-    //   //this.bunny.setVelocityY(0);
-    // }
-    /*if (toggle == false)
-        {
-            this.stressorInfoArray[0].speedX = this.speedOriginalX
-            this.stressorInfoArray[0].speedY = this.speedOriginalY
-            this.breathe.setVisible(false)
-        }*/
-
-
-// if (this.stressorsArray[0].x > 6000)
-// {
-//     this.stressorsArray[0].x = 200
-//     this.stressorsArray[0].y = Math.random() *4000
-//     this.stressorsArray[0].calcSpeed
-//     this.speedOriginalX = this.stressorInfoArray[0].speedX
-//     this.speedOriginalY = this.stressorInfoArray[0].speedY
-
-// }
-
-
+    // Set the camera to follow the player.
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.cameras.main.startFollow(this.player);
+    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    console.log( map.widthInPixels, map.heightInPixels);
 }
+
+update() {
+    // Get keyboard input for controlling the player
+    const cursors = this.input.keyboard.createCursorKeys();
+
+    // movement and animations
+    if (cursors.left.isDown) {
+        this.player.setVelocityX(-200); // Move left
+        this.player.anims.play('walk', true); // walking animation
+        this.player.setFlipX(true); // Flip sprite to face left
+    } else if (cursors.right.isDown) {
+        this.player.setVelocityX(200); // Move right
+        this.player.anims.play('walk', true); // walking animation
+        this.player.setFlipX(false); // Face right
+    } else {
+        this.player.setVelocityX(0); // Stop moving
+        this.player.anims.stop(); // Stop animation when idle
+    }
+
+    // Handle jumping
+    if (cursors.space.isDown && this.player.body.blocked.down) {
+        this.player.setVelocityY(-300); // Jump
+    }
+}
+}
+  
 
   
 
-  collectCarrot(bunny, carrot) {
-    carrot.destroy(); // Remove the carrot from the scene
-    // Optionally, increment a score here
-    
-  }
-
-  hitStressor(bunny, stressor) {
-    // Handle collision with stressor
-   
-    this.stressorsArray[0].setVisible(false)
-    this.bunny.setVisible(false)
-
-    this.gameOverText.setVisible(true)
-  }
-}

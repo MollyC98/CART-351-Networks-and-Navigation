@@ -23,14 +23,29 @@ function startGame(answers)  {
 
         const game = new Phaser.Game({
         type: Phaser.AUTO,
+        width: 1280,
+        height: 736,
+
         scale: {
-            parent: 'game-container',
-            width: 1280,
-            height: 720,
             mode: Phaser.Scale.FIT,
-            autoCenter: Phaser.Scale.CENTER_BOTH
+            autoCenter: Phaser.Scale.CENTER_BOTH,
+            //zoom: 4
         },
+
+        dom: {
+            createContainer: true
+        },
+        parent: "game-container",
+    
+        // scale: {
+        //     parent: 'game-container',
+            
+        
+        //     // mode: Phaser.Scale.FIT,
+        //     // autoCenter: Phaser.Scale.CENTER_BOTH
+        // },
         scene: [PreloadScene,DeadlineScene, OverthinkingScene], // Only include scenes needed for gameplay
+    
         physics: {
             default: 'arcade',
             arcade: {
