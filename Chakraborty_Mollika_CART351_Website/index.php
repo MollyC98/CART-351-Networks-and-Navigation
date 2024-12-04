@@ -4,6 +4,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 try {
     // 1: Connect to MongoDB Atlas
+
+    //deleted info, mongo connection restore later
     
     echo "Valid connection<br>";
 
