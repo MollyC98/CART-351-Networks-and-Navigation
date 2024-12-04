@@ -4,7 +4,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 try {
     // 1: Connect to MongoDB Atlas
-    $client = new MongoDB\Client('mongodb+srv://chakrabortymollika:!9Jan1988@cluster0.fkkwm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
     
     echo "Valid connection<br>";
 
